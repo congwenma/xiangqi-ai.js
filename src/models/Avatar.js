@@ -1,23 +1,52 @@
 export default class Avatar {
-  constructor ({faction} = {}) {
-    this.faction = faction;
+  constructor ({faction, position, index} = {}) {
+    this.faction = faction // red or black
+    this.position = position
+    this.index = index
+  }
+
+  get name() {
+    return this.constructor.name
+  }
+
+  get key() {
+    return this.toString();
   }
 }
 
-import Cannon from './Cannon'
-import Chariot from './Chariot'
-import General from './General'
-import Guard from './Guard'
-import Knight from './Knight'
-import Minister from './Minister'
-import Pawn from './Pawn'
-
-export {
-  Cannon,
-  Chariot,
-  General,
-  Guard,
-  Knight,
-  Minister,
-  Pawn 
+export class Cannon extends Avatar {
+  constructor (params) {
+    super(params)
+  }
 }
+export class Chariot extends Avatar {
+  constructor (params) {
+    super(params)
+  }
+}
+export class General extends Avatar {
+  constructor (params) {
+    super(params)
+  }
+}
+export class Guard extends Avatar {
+  constructor (params) {
+    super(params)
+  }
+}
+export class Knight extends Avatar {
+  constructor (params) {
+    super(params)
+  }
+}
+export class Minister extends Avatar {
+  constructor (params) {
+    super(params)
+  }
+}
+export class Pawn extends Avatar {
+  constructor (params) {
+    super(params)
+  }
+}
+

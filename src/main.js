@@ -1,6 +1,14 @@
 // Chess game starts here
 
-import Avatars, { General } from './models/Avatar';
+import Avatars, { 
+  Cannon,
+  Chariot,
+  General,
+  Guard,
+  Knight,
+  Minister,
+  Pawn
+} from './models/Avatar';
 
 
 

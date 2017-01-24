@@ -4,20 +4,22 @@
 	(factory());
 }(this, (function () { 'use strict';
 
-class General$$1 extends Avatar {
-  constructor (params) {
-    super(params);
-  }
-}
-
 class Avatar {
   constructor ({faction} = {}) {
     this.faction = faction;
   }
 }
 
+
+
+class General extends Avatar {
+  constructor (params) {
+    super(params);
+  }
+}
+
 // Chess game starts here
 
-console.log(General$$1);
+console.log(General);
 
 })));
