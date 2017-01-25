@@ -1,3 +1,13 @@
+export const Dictionary = {
+  Cannon: 'C',
+  Chariot: 'R', // as in rook
+  General: 'B', // as in boss, lol!
+  Guard: 'G',
+  Knight: 'K',
+  Minister: 'M',
+  Pawn: 'P'
+}
+
 export default class Avatar {
   constructor ({faction, position, index} = {}) {
     this.faction = faction // red or black
@@ -8,6 +18,13 @@ export default class Avatar {
   get name() {
     return this.constructor.name
   }
+
+  get toSingleChar() {
+    const char = Dictionary[this.name]
+    return this.isRed ? char.toLowerCase() : char;
+  }
+
+  get isRed() { return this.faction === 'red'}
 
   get key() {
     return this.toString();
