@@ -1,4 +1,4 @@
-import Board from '../src/Board'
+import Board from '../../src/models/Board'
 
 describe(Board, function() {
   let board = new Board();

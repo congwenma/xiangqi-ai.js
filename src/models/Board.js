@@ -1,4 +1,4 @@
-import Avatars, { 
+import Avatars, {
   Cannon,
   Chariot,
   General,
@@ -6,30 +6,33 @@ import Avatars, {
   Knight,
   Minister,
   Pawn
-} from './models/Avatar';
+} from './Avatar';
 
 import tools from 'surgeonkit';
+import Matrix from './Matrix';
+
 
 //    0 1 2 3 4 5 6 7 8
 //  -------------------
 // 0| R K M G B G M K R
-// 1| . . . .>.<. . . .   
+// 1| . . . .>.<. . . .
 // 2| . C . . . . . C .
 // 3| P . P . P . P . P
 // 4| -----------------
 // 5| -----------------
 // 6| p . p . p . p . p
 // 7| . c . . . . . c .
-// 8| . . . .>.<. . . .       
+// 8| . . . .>.<. . . .
 // 9| r k m g b g m k r
 //         \
 //       (2, 9) (x, y)
 export default class Board {
   constructor({pieces} = {}) {
+    this.matrix = new Matrix();
     // TODO: for each piece get value
     this.pieces = [
       new Chariot({ faction: 'red', position: [0, 9] }),
-      new Chariot({ faction: 'red', position: [8, 9] }),     
+      new Chariot({ faction: 'red', position: [8, 9] }),
       new Knight({ faction: 'red', position: [1, 9] }),
       new Knight({ faction: 'red', position: [7, 9] }),
       new Minister({ faction: 'red', position: [2, 9] }),
@@ -46,7 +49,7 @@ export default class Board {
       new Pawn({ faction: 'red', position: [8, 6] }),
 
       new Chariot({ faction: 'black', position: [0, 0] }),
-      new Chariot({ faction: 'black', position: [8, 0] }),     
+      new Chariot({ faction: 'black', position: [8, 0] }),
       new Knight({ faction: 'black', position: [1, 0] }),
       new Knight({ faction: 'black', position: [7, 0] }),
       new Minister({ faction: 'black', position: [2, 0] }),
@@ -68,15 +71,15 @@ export default class Board {
 
   }
 
-// R . . P . . p . . r
-// K . C . . . . c . k
-// M . . P . . p . . m
-// G . . . . . . . . g
-// B . . P . . p . . b
-// G . . . . . . . . g
-// M . . P . . p . . m
-// K . C . . . . c . k
-// R . . P . . p . . r
+  // R . . P . . p . . r
+  // K . C . . . . c . k
+  // M . . P . . p . . m
+  // G . . . . . . . . g
+  // B . . P . . p . . b
+  // G . . . . . . . . g
+  // M . . P . . p . . m
+  // K . C . . . . c . k
+  // R . . P . . p . . r
   toString() {
     // x or whichCol is exterior
     var grid = tools.expand(9).map(
