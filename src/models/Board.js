@@ -1,4 +1,4 @@
-import Avatars, {
+import Avatar, {
   Cannon,
   Chariot,
   General,
@@ -27,8 +27,13 @@ import Matrix from './Matrix';
 //         \
 //       (2, 9) (x, y)
 export default class Board {
+  // static constants
+  static get BOARD_WIDTH() { return 9 }
+  static get BOARD_HEIGHT() { return 10 }
+
   constructor({pieces} = {}) {
-    this.matrix = new Matrix();
+    this.matrix = new Matrix({ width: 9, height: 10 });
+
     // TODO: for each piece get value
     this.pieces = [
       new Chariot({ faction: 'red', position: [0, 9] }),
@@ -93,5 +98,16 @@ export default class Board {
     )
 
     return grid.map(x => x.join(' ')).join('\n') // y joins \n
+  }
+
+  static isInside(position) {
+    const { x, y } = position
+    return x < Board.BOARD_WIDTH && y < Board.BOARD_HEIGHT &&
+      x >= 0 && y >= 0
+  }
+
+  isEmpty(position) {
+    const { x, y } = position
+    return Board.isInside(position) && this.matrix[x][y] == undefined
   }
 }
