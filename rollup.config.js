@@ -4,5 +4,8 @@ export default {
   entry: 'src/main.js',
   dest: 'main.bundle.js',
   plugins: [ ],
-  format: 'umd'
+  format: 'umd',
+  globals: {
+    lodash: '_'
+  }
 }

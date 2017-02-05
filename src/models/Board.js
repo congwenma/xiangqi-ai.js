@@ -10,6 +10,7 @@ import Avatar, {
 
 import tools from 'surgeonkit';
 import Matrix from './Matrix';
+import _ from 'lodash'
 
 
 //    0 1 2 3 4 5 6 7 8
@@ -70,6 +71,8 @@ export default class Board {
       new Pawn({ faction: 'black', position: [6, 3] }),
       new Pawn({ faction: 'black', position: [8, 3] }),
     ]
+
+    this.pieces.map(p => this.update(p))
   }
 
   pieceAt(position = []) { // [x, y]
@@ -97,7 +100,7 @@ export default class Board {
       }
     )
 
-    return grid.map(x => x.join(' ')).join('\n') // y joins \n
+    return ['', ...grid.map(x => x.join(' ')), ''].join('\n') // y joins \n
   }
 
   static isInside(position) {
@@ -109,5 +112,49 @@ export default class Board {
   isEmpty(position) {
     const { x, y } = position
     return Board.isInside(position) && this.matrix[x][y] == undefined
+  }
+
+  // update the matrix to reflect the position of the piece's new position
+  update(piece) {
+    var pos = piece.position;
+    this.matrix[pos[0]][pos[1]] = piece
+    return true;
+  }
+
+  updatePiece(originalPiece, newPosition) {
+    var newPositionPiece = this.getPiece(newPosition) // Return the killed piece or null.
+
+    if(newPositionPiece !== null) // the newPositionPiece is killed
+      _.remove(this.pieces, p => p === newPositionPiece)
+
+    this.movePiece(originalPiece, newPosition)
+
+    this.switchTurn()
+    return newPositionPiece // return the piece that was killed or null
+  }
+
+  // return the piece to its original position inthe matrix
+  backPiece(piece) {
+    const { position: [origX, origY] } = piece
+    this.matrix[origX][origY] = piece
+    return true
+  }
+
+  movePiece(originalPiece, newPosition) {
+    const [origX, origY] = originalPiece.position
+    const [newX, newY] = newPosition
+
+    this.matrix[origX][origY] = null
+    this.matrix[newX][newY] = originalPiece
+    originalPiece.position = newPosition
+  }
+
+  switchTurn() {  // @returns null
+    this.player = this.player === 'red' ? 'black' : 'red'
+  }
+
+  getPiece(newPosition) {
+    const [x, y] = newPosition
+    return this.matrix[x][y]
   }
 }
