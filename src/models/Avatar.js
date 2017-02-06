@@ -1,3 +1,5 @@
+import Straight from '../movesets/Straight'
+
 export const Dictionary = {
   Cannon: 'C',
   Chariot: 'R', // as in rook
@@ -66,4 +68,3 @@ export class Pawn extends Avatar {
     super(params)
   }
 }
-
